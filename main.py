@@ -21,15 +21,19 @@ ZILLOW_LINK = "https://www.zillow.com/homes/for_rent/1-_beds/?searchQueryState=%
               "%7D%2C%22mp%22%3A%7B%22max%22%3A3000%7D%2C%22price%22%3A%7B%22max%22%3A872627%7D%2C%22beds%22%3A%7B" \
               "%22min%22%3A1%7D%7D%2C%22isListVisible%22%3Atrue%2C%22mapZoom%22%3A12%7D"
 
+# create the properties class to get all data from the site
 properties = PropertySearch(ZILLOW_LINK, HEADERS)
-
 all_units = properties.find_all(target_name="article", target_class="list-card")
 properties.add_unit_items()
 
+# lets get caught up before we do all the form filling
 time.sleep(1)
 
+# creates the driver class to fill the form out
 driver = DriverClass(driver=CHROME_DRIVER_PATH, url=GOOGLE_FORM_LINK)
 
+# fills the form out through the driver class
 driver.fill_form(all_units, properties)
 
+# closes the window after the form has been filled out
 driver.close_window()
