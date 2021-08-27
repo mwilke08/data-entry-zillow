@@ -55,6 +55,10 @@ class PropertySearch:
                 self.append_item(custom_list="all_unit_address", item=unit_address)
             except Exception as e:
                 self.append_item(custom_list="all_unit_address", item="")
+            finally:
+                self.unit_prices.pop()
+                self.unit_links.pop()
+                self.all_unit_address.pop()
 
     def get_address(self, index):
         return self.all_unit_address[index]
