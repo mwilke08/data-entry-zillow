@@ -30,10 +30,10 @@ properties.add_unit_items()
 time.sleep(1)
 
 # creates the driver class to fill the form out
-driver = DriverClass(driver=CHROME_DRIVER_PATH, url=GOOGLE_FORM_LINK)
+# driver = DriverClass(driver=CHROME_DRIVER_PATH, url=GOOGLE_FORM_LINK)
 
 # fills the form out through the driver class
-driver.fill_form(all_units, properties)
+# driver.fill_form(all_units, properties)
 
 # closes the window after the form has been filled out
-driver.close_window()
+# driver.close_window()

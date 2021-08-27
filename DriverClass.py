@@ -7,14 +7,17 @@ class DriverClass:
         self.driver = webdriver.Chrome(executable_path=driver)
         self.driver.get(url)
 
+    # finds the x path via path provided
     def find_x_path(self, path):
         item = self.driver.find_element_by_xpath(path)
         return item
 
+    # finds the linked path via path provided
     def find_a_path(self, path):
         item = self.driver.find_element_by_link_text(path)
         return item
 
+    # fills the form out with the data provided from the property class
     def fill_form(self, all_units_to_add, property):
         for i in range(len(all_units_to_add) - 1):
             address_input = self.find_x_path(
@@ -38,6 +41,7 @@ class DriverClass:
             another_response.click()
             time.sleep(1)
 
+    # closes the window when called
     def close_window(self):
         self.driver.close()
 

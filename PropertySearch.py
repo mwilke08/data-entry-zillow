@@ -17,14 +17,17 @@ class PropertySearch:
         self.unit_links = []
         self.all_unit_address = []
 
+    # find all method to locate something with a specific class
     def find_all(self, target_name, target_class):
         self.all_units = self.soup.find_all(name=target_name, class_=target_class)
         return self.all_units
 
+    # find one item with a specific class
     def find_item(self, target_name, target_class):
         item = self.soup.find(name=target_name, class_=target_class)
         return item
 
+    # appends the item to the list provided
     def append_item(self, custom_list, item):
         if custom_list == "unit_prices":
             self.unit_prices.append(item)
@@ -35,6 +38,7 @@ class PropertySearch:
         else:
             print("Not a valid list")
 
+    # adds all items to all the lists
     def add_unit_items(self):
         for unit in self.all_units:
             # get the price from the unit
@@ -45,8 +49,11 @@ class PropertySearch:
                 self.append_item(custom_list="unit_prices", item="")
             # get the link from the unit
             try:
-                unit_link = unit.find(name="a", class_="list-card-link")
-                self.append_item(custom_list="unit_links", item=unit_link.get("href"))
+                unit_link = unit.find(name="a", class_="list-card-link").get("href")
+                if "http" not in unit_link:
+                    self.append_item(custom_list="unit_links", item=f"https://www.zillow.com{unit_link}")
+                else:
+                    self.append_item(custom_list="unit_links", item=unit_link)
             except Exception as e:
                 self.append_item(custom_list="unit_links", item="")
             # get the address from the unit
@@ -60,15 +67,19 @@ class PropertySearch:
                 self.unit_links.pop()
                 self.all_unit_address.pop()
 
+    # getter for the address list
     def get_address(self, index):
         return self.all_unit_address[index]
 
+    # getter for the link list
     def get_link(self, index):
         return self.unit_links[index]
 
+    # getter for the price list
     def get_price(self, index):
         return self.unit_prices[index]
 
+    # prints all lists
     def print_lists(self):
         print(f'{self.unit_prices}\n{self.unit_links}\n{self.all_unit_address}')
 
